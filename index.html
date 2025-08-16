@@ -6,53 +6,75 @@
 <title>守護神診断 - 和柄豪華版</title>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap" rel="stylesheet">
 <style>
-  body { margin:0; padding:0; font-family:'Shippori Mincho', serif; color:#fff; background-color:#4B3B4A; overflow-x:hidden; position:relative; }
-  body::before { content:''; position:fixed; top:0; left:0; width:100%; height:100%; background-image:url('img/waterpattern.png'); background-repeat:repeat; opacity:0.15; z-index:0; }
-  header { text-align:center; padding:80px 20px 40px; position:relative; z-index:1; }
-  header h1 { font-size:2.5em; color:#FFD700; text-shadow:2px 2px 5px #000; margin:0; }
-  header p { margin-top:10px; font-size:1.2em; color:#fff3c4; }
-  main { max-width:550px; margin:20px auto 60px; background:rgba(255,255,255,0.05); padding:30px; border-radius:20px; backdrop-filter:blur(5px); box-shadow:0 8px 30px rgba(0,0,0,0.3); position:relative; z-index:1; }
-  label { display:block; margin-top:15px; font-size:1.1em; color:#fff; }
-  input { width:100%; padding:12px; margin-top:5px; border:none; border-radius:12px; font-size:1em; }
-  button { width:100%; padding:15px; margin-top:25px; border:none; border-radius:30px; font-size:1.2em; font-weight:bold; cursor:pointer; color:#4B3B4A; background:linear-gradient(45deg,#FFD700,#DAA520); box-shadow:0 5px 15px rgba(0,0,0,0.4); transition:all 0.3s ease; }
-  button:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.5); }
-  #result { margin-top:30px; padding:20px; background:rgba(255,255,255,0.1); border-radius:15px; display:none; animation:fadeIn 1s ease forwards; }
-  #result h2 { font-size:1.6em; margin-bottom:10px; color:#FFD700; }
-  #result p { font-size:1.1em; margin:8px 0; }
-  #line-button-container { text-align:center; margin-top:20px; display:none; }
-  #line-button { display:inline-block; padding:15px 30px; background-color:#00C300; color:white; font-size:1.2em; border-radius:30px; text-decoration:none; font-weight:bold; transition:0.3s; }
-  #line-button:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.3); }
-  footer { text-align:center; font-size:0.85em; padding:25px; color:#fff8c4; }
-  @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
-  @media(max-width:600px) { main { margin:20px 10px 60px; padding:20px; } header h1 { font-size:2em; } header p { font-size:1em; } }
+  body {
+    margin:0; padding:0;
+    font-family:'Shippori Mincho', serif;
+    color:#fff;
+    background-color:#4B3B4A;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before {
+    content:'';
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background-image:url('img/waterpattern.png');
+    background-repeat:repeat;
+    opacity:0.15;
+    z-index:0;
+  }
+  header { text-align:center; padding:80px 20px 40px 20px; position:relative; z-index:1;}
+  header h1 { font-size:2.5em; color:#FFD700; text-shadow:2px 2px 5px #000; margin:0;}
+  header p { margin-top:10px; font-size:1.2em; color:#fff3c4;}
+  main {
+    max-width:550px; margin:20px auto 60px auto;
+    background:rgba(255,255,255,0.05);
+    padding:30px; border-radius:20px;
+    backdrop-filter:blur(5px);
+    box-shadow:0 8px 30px rgba(0,0,0,0.3);
+    position:relative; z-index:1;
+  }
+  label { display:block; margin-top:15px; font-size:1.1em; color:#fff;}
+  input { width:100%; padding:12px; margin-top:5px; border:none; border-radius:12px; font-size:1em;}
+  button { width:100%; padding:15px; margin-top:25px; border:none; border-radius:30px; font-size:1.2em; font-weight:bold; cursor:pointer; color:#4B3B4A; background:linear-gradient(45deg,#FFD700,#DAA520); box-shadow:0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease;}
+  button:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.5);}
+  #result { margin-top:30px; padding:20px; background:rgba(255,255,255,0.1); border-radius:15px; display:none; animation:fadeIn 1s ease forwards;}
+  #result h2 { font-size:1.6em; margin-bottom:10px; color:#FFD700;}
+  #result p { font-size:1.1em; margin:8px 0;}
+  #line-button-container { text-align:center; margin-top:20px; display:none;}
+  #line-button { display:inline-block; padding:15px 30px; background-color:#00C300; color:white; font-size:1.2em; border-radius:30px; text-decoration:none; font-weight:bold;}
+  footer { text-align:center; font-size:0.85em; padding:25px; color:#fff8c4;}
+  @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 </style>
 </head>
 <body>
+
 <header>
   <h1>🌸 あなたの守護神診断 🌸</h1>
   <p>名前と生年月日から、あなたを守る神様と守護石を導きます</p>
 </header>
 
 <main>
-<form id="diagnosisForm">
-  <label for="name">お名前</label>
-  <input type="text" id="name" required>
-  <label for="birth">生年月日</label>
-  <input type="date" id="birth" required>
-  <button type="submit">診断する</button>
-</form>
+  <form id="diagnosisForm">
+    <label for="name">お名前</label>
+    <input type="text" id="name" required>
+    <label for="birth">生年月日</label>
+    <input type="date" id="birth" required>
+    <button type="submit">診断する</button>
+  </form>
 
-<div id="result"></div>
+  <div id="result"></div>
 
-<!-- LINE誘導ボタン -->
-<div id="line-button-container">
-  <a id="line-button" target="_blank">
-    💌 LINEで詳細診断を見る
-  </a>
-</div>
+  <!-- LINE誘導ボタン -->
+  <div id="line-button-container">
+    <a id="line-button" target="_blank">💌 LINEで詳細診断を見る</a>
+  </div>
 </main>
 
-<footer>&copy; 2025 八百万の輝石</footer>
+<footer>
+&copy; 2025 八百万の輝石
+</footer>
 
 <script>
 const gods = [
@@ -70,11 +92,9 @@ const gods = [
   { name:"少彦名命", stone:"アクアマリン", msg:"知恵と癒しの神" }
 ];
 
-const lineFriendUrl = "https://lin.ee/Ea4m5Oj";
-
 document.getElementById('diagnosisForm').addEventListener('submit', function(e){
   e.preventDefault();
-  const name = document.getElementById('name').value;
+  const name = document.getElementById('name').value.trim();
   const birth = document.getElementById('birth').value;
   if(!name || !birth) return;
 
@@ -82,7 +102,7 @@ document.getElementById('diagnosisForm').addEventListener('submit', function(e){
   const god = gods[index];
 
   const result = document.getElementById('result');
-  result.style.display = 'block';
+  result.style.display='block';
   result.innerHTML = `
     <h2>${name} さんの守護神は…</h2>
     <p><strong>${god.name}</strong></p>
@@ -93,9 +113,12 @@ document.getElementById('diagnosisForm').addEventListener('submit', function(e){
   // LINEボタン表示
   const lineBtnContainer = document.getElementById('line-button-container');
   const lineBtn = document.getElementById('line-button');
-  lineBtn.href = lineFriendUrl + "?text=" + encodeURIComponent(`${name} さんの守護神を詳しく知りたいです`);
+  // URLに事前メッセージを埋め込む
+  const preMessage = `${name} さんの守護神の詳細を知りたいです`;
+  lineBtn.href = "https://lin.ee/Ea4m5Oj?text=" + encodeURIComponent(preMessage);
   lineBtnContainer.style.display = 'block';
 });
 </script>
+
 </body>
 </html>
