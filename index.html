@@ -15,57 +15,47 @@
     overflow-x: hidden;
     position: relative;
   }
-
-  /* 背景と流水＋金箔風 */
   body::before {
     content: '';
     position: fixed;
     top:0; left:0;
     width:100%; height:100%;
-    background:
-      linear-gradient(135deg, rgba(255,215,0,0.2) 0%, rgba(255,215,0,0.05) 100%),
-      url('img/waterpattern.png');
+    background-image: url('img/waterpattern.png');
     background-repeat: repeat;
-    background-size: cover;
-    opacity: 0.25;
+    opacity: 0.15;
     z-index: 0;
   }
-
   header {
     text-align: center;
-    padding: 60px 15px 30px 15px;
+    padding: 80px 20px 40px;
     position: relative;
     z-index: 1;
   }
   header h1 {
-    font-size: 2.2em;
+    font-size: 2.5em;
     color: #FFD700;
-    text-shadow: 2px 2px 8px #000;
+    text-shadow: 2px 2px 5px #000;
     margin: 0;
   }
   header p {
-    margin-top: 8px;
-    font-size: 1.1em;
-    color: #fff8c4;
-    text-shadow: 1px 1px 4px #000;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #fff3c4;
   }
-
   main {
-    max-width: 90%;
-    margin: 15px auto 40px auto;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 25px;
+    max-width: 550px;
+    margin: 20px auto 60px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
     border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
     position: relative;
     z-index: 1;
-    border: 1px solid rgba(255,215,0,0.5);
   }
-
   label {
     display: block;
-    margin-top: 12px;
+    margin-top: 15px;
     font-size: 1.1em;
     color: #fff;
   }
@@ -76,50 +66,42 @@
     border: none;
     border-radius: 12px;
     font-size: 1em;
-    outline: none;
   }
-
   button {
     width: 100%;
-    padding: 14px;
-    margin-top: 22px;
+    padding: 15px;
+    margin-top: 25px;
     border: none;
     border-radius: 30px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-weight: bold;
     cursor: pointer;
     color: #4B3B4A;
     background: linear-gradient(45deg, #FFD700, #DAA520);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
     transition: all 0.3s ease;
   }
   button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-    background: linear-gradient(45deg, #FFE066, #FFC700);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
   }
-
   #result {
     margin-top: 30px;
     padding: 20px;
-    background: rgba(255,255,255,0.12);
-    border-radius: 18px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
     display: none;
     animation: fadeIn 1s ease forwards;
-    border: 1px solid rgba(255,215,0,0.6);
   }
-
   #result h2 {
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin-bottom: 10px;
     color: #FFD700;
-    text-shadow: 1px 1px 5px #000;
   }
   #result p {
-    font-size: 1.05em;
-    margin: 6px 0;
+    font-size: 1.1em;
+    margin: 8px 0;
   }
-
   #line-button-container {
     text-align:center;
     margin-top: 20px;
@@ -130,40 +112,33 @@
     padding:15px 30px;
     background-color:#00C300;
     color:white;
-    font-size:1.1em;
-    border-radius:35px;
+    font-size:1.2em;
+    border-radius:30px;
     text-decoration:none;
     font-weight:bold;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    transition: all 0.3s ease;
+    transition: 0.3s;
   }
   #line-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-    background-color:#00E000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
-
   footer {
     text-align: center;
     font-size: 0.85em;
-    padding: 20px;
+    padding: 25px;
     color: #fff8c4;
   }
-
   @keyframes fadeIn {
     from {opacity:0; transform: translateY(20px);}
     to {opacity:1; transform: translateY(0);}
   }
 
-  /* レスポンシブ調整 */
+  /* レスポンシブ */
   @media (max-width: 600px) {
     header h1 { font-size: 2em; }
     header p { font-size: 1em; }
     main { padding: 20px; }
-    #result h2 { font-size: 1.3em; }
-    #result p { font-size: 1em; }
-    #line-button { font-size: 1em; padding: 14px 28px; }
-    button { font-size: 1em; padding: 12px; }
+    button, #line-button { font-size: 1em; padding: 12px 20px; }
   }
 </style>
 </head>
@@ -174,24 +149,22 @@
 </header>
 
 <main>
-<form id="diagnosisForm">
-  <label for="name">お名前</label>
-  <input type="text" id="name" required>
+  <form id="diagnosisForm">
+    <label for="name">お名前</label>
+    <input type="text" id="name" required>
 
-  <label for="birth">生年月日</label>
-  <input type="date" id="birth" required>
+    <label for="birth">生年月日</label>
+    <input type="date" id="birth" required>
 
-  <button type="submit">診断する</button>
-</form>
+    <button type="submit">診断する</button>
+  </form>
 
-<div id="result"></div>
+  <div id="result"></div>
 
-<!-- LINE誘導ボタン -->
-<div id="line-button-container">
-  <a id="line-button" href="" target="_blank">
-    💌 LINEで詳細診断を見る
-  </a>
-</div>
+  <!-- LINE誘導ボタン -->
+  <div id="line-button-container">
+    <a id="line-button" target="_blank">💌 LINEで詳細診断を見る</a>
+  </div>
 </main>
 
 <footer>
@@ -214,6 +187,9 @@ const gods = [
   { name: "少彦名命", stone: "アクアマリン", msg: "知恵と癒しの神" }
 ];
 
+const lineBaseUrl = "https://lin.ee/Ea4m5Oj"; // LINE公式
+const paidPageUrl = "https://example.com/paid-diagnosis"; // 有料ページURL
+
 document.getElementById('diagnosisForm').addEventListener('submit', function(e){
   e.preventDefault();
   const name = document.getElementById('name').value;
@@ -232,10 +208,11 @@ document.getElementById('diagnosisForm').addEventListener('submit', function(e){
     <p>守護石：${god.stone}</p>
   `;
 
-  // LINEボタン表示
+  // LINEボタン
   const lineBtnContainer = document.getElementById('line-button-container');
   const lineBtn = document.getElementById('line-button');
-  lineBtn.href = "https://lin.ee/Ea4m5Oj?text=" + encodeURIComponent(`${name} さんの守護神を詳しく知りたいです`);
+  const message = `こんにちは！${name}さんの守護神診断の詳細を知りたいです。詳しい診断はこちら: ${paidPageUrl}`;
+  lineBtn.href = lineBaseUrl + "?text=" + encodeURIComponent(message);
   lineBtnContainer.style.display = 'block';
 });
 </script>
