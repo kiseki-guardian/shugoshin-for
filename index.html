@@ -15,8 +15,6 @@
     overflow-x: hidden;
     position: relative;
   }
-
-  /* 背景和柄 */
   body::before {
     content: '';
     position: fixed;
@@ -27,7 +25,6 @@
     opacity: 0.15;
     z-index: 0;
   }
-
   header {
     text-align: center;
     padding: 80px 20px 40px 20px;
@@ -45,7 +42,6 @@
     font-size: 1.2em;
     color: #fff3c4;
   }
-
   main {
     max-width: 550px;
     margin: 20px auto 60px auto;
@@ -57,7 +53,6 @@
     position: relative;
     z-index: 1;
   }
-
   label {
     display: block;
     margin-top: 15px;
@@ -90,7 +85,6 @@
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.5);
   }
-
   #result {
     margin-top: 30px;
     padding: 20px;
@@ -99,7 +93,6 @@
     display: none;
     animation: fadeIn 1s ease forwards;
   }
-
   #result h2 {
     font-size: 1.6em;
     margin-bottom: 10px;
@@ -124,17 +117,35 @@
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
-
   footer {
     text-align: center;
     font-size: 0.85em;
     padding: 25px;
     color: #fff8c4;
   }
-
   @keyframes fadeIn {
     from {opacity:0; transform: translateY(20px);}
     to {opacity:1; transform: translateY(0);}
+  }
+  /* LINEボタン */
+  #line-button-container {
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+  }
+  #line-button {
+    display:inline-block;
+    padding:15px 30px;
+    background-color:#00C300;
+    color:white;
+    font-size:1.2em;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+  }
+  #line-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
 </style>
 </head>
@@ -158,36 +169,22 @@
 <div id="result"></div>
 
 <!-- LINE誘導ボタン -->
-<div id="line-button-container" style="text-align:center; margin-top: 20px; display:none;">
-  <a id="line-button" href="https://lin.ee/Ea4m5Oj" target="_blank" style="
-      display:inline-block;
-      padding:15px 30px;
-      background-color:#00C300;
-      color:white;
-      font-size:1.2em;
-      border-radius:30px;
-      text-decoration:none;
-      font-weight:bold;
-  ">
-    💌 LINEで詳細診断を見る</main>
+<div id="line-button-container">
+  <a id="line-button" href="#" target="_blank">💌 LINEで詳細診断を見る</a>
+</div>
 
 <!-- 有料詳細診断ボタン -->
 <div style="text-align:center; margin-top: 30px;">
-    <button id="checkout-button" style="
-        background-color: #d4af37;
-        color: white;
-        padding: 15px 30px;
-        font-size: 1.2em;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-    ">
-        💎 詳細診断を見る（有料） 💎
-    </button>
+  <button id="checkout-button">
+    💎 詳細診断を見る（有料） 💎
+  </button>
 </div>
+</main>
+
 <footer>
 &copy; 2025 八百万の輝石
 </footer>
+
 <script>
 const gods = [
   { name: "天照大神", stone: "サンストーン", msg: "光と希望をもたらす女神" },
@@ -204,7 +201,7 @@ const gods = [
   { name: "少彦名命", stone: "アクアマリン", msg: "知恵と癒しの神" }
 ];
 
-const lineUrl = "https://lin.ee/Ea4m5Oj"; //
+const lineUrl = "https://lin.ee/Ea4m5Oj";
 
 document.getElementById('diagnosisForm').addEventListener('submit', function(e){
   e.preventDefault();
@@ -222,34 +219,34 @@ document.getElementById('diagnosisForm').addEventListener('submit', function(e){
     <p><strong>${god.name}</strong></p>
     <p>${god.msg}</p>
     <p>守護石：${god.stone}</p>
-    
-    // LINEボタン表示
+  `;
+
+  // LINEボタン表示
   const lineBtnContainer = document.getElementById('line-button-container');
   const lineBtn = document.getElementById('line-button');
-  lineBtn.href = https://lin.ee/Ea4m5Oj + "?text=" + encodeURIComponent(`${name} さんの守護神を詳しく知りたいです`);
+  lineBtn.href = lineUrl + "?text=" + encodeURIComponent(`${name} さんの守護神を詳しく知りたいです`);
   lineBtnContainer.style.display = 'block';
-});   
-
+});
 </script>
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    const stripe = Stripe("pk_test_pk_test_51RwNChGWL0rYPR9fJTGPlQe1zzNhBhqJOx4ZkgTPa2pdUwiMpgZM5giz8dgE95GqwUgsjtf4kcwVg3kFEACe8Ttl0052P5CgYf");
-    document.getElementById("checkout-button").addEventListener("click", function () {
-        fetch("/create-checkout-session", { method: "POST" })
-            .then(response => response.json())
-            .then(session => {
-                return stripe.redirectToCheckout({ sessionId: session.id });
-            })
-            .then(result => {
-                if (result.error) {
-                    alert(result.error.message);
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
-    });
+const stripe = Stripe("pk_test_pk_test_51RwNChGWL0rYPR9fJTGPlQe1zzNhBhqJOx4ZkgTPa2pdUwiMpgZM5giz8dgE95GqwUgsjtf4kcwVg3kFEACe8Ttl0052P5CgYf");
+document.getElementById("checkout-button").addEventListener("click", function () {
+    fetch("/create-checkout-session", { method: "POST" })
+        .then(response => response.json())
+        .then(session => {
+            return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(result => {
+            if (result.error) {
+                alert(result.error.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+});
 </script>
 </body>
 </html>
