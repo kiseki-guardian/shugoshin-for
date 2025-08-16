@@ -156,7 +156,20 @@
 </form>
 
 <div id="result"></div>
-</main>
+
+<!-- LINE誘導ボタン -->
+<div id="line-button-container" style="text-align:center; margin-top: 20px; display:none;">
+  <a id="line-button" href="https://lin.ee/Ea4m5Oj" target="_blank" style="
+      display:inline-block;
+      padding:15px 30px;
+      background-color:#00C300;
+      color:white;
+      font-size:1.2em;
+      border-radius:30px;
+      text-decoration:none;
+      font-weight:bold;
+  ">
+    💌 LINEで詳細診断を見る</main>
 
 <!-- 有料詳細診断ボタン -->
 <div style="text-align:center; margin-top: 30px;">
@@ -191,6 +204,8 @@ const gods = [
   { name: "少彦名命", stone: "アクアマリン", msg: "知恵と癒しの神" }
 ];
 
+const lineUrl = "https://lin.ee/Ea4m5Oj"; //
+
 document.getElementById('diagnosisForm').addEventListener('submit', function(e){
   e.preventDefault();
   const name = document.getElementById('name').value;
@@ -207,9 +222,14 @@ document.getElementById('diagnosisForm').addEventListener('submit', function(e){
     <p><strong>${god.name}</strong></p>
     <p>${god.msg}</p>
     <p>守護石：${god.stone}</p>
-    <a href="https://lin.ee/Ea4m5Oj" target="_blank">LINEで詳細を見る</a>
-  `;
-});
+    
+    // LINEボタン表示
+  const lineBtnContainer = document.getElementById('line-button-container');
+  const lineBtn = document.getElementById('line-button');
+  lineBtn.href = https://lin.ee/Ea4m5Oj + "?text=" + encodeURIComponent(`${name} さんの守護神を詳しく知りたいです`);
+  lineBtnContainer.style.display = 'block';
+});   
+
 </script>
 
 <script src="https://js.stripe.com/v3/"></script>
