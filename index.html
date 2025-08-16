@@ -158,6 +158,23 @@
 <div id="result"></div>
 </main>
 
+<!-- 有料詳細診断ボタン -->
+<div style="text-align:center; margin-top: 30px;">
+    <button id="checkout-button" style="
+        background-color: #d4af37;
+        color: white;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    ">
+        💎 詳細診断を見る（有料） 💎
+    </button>
+</div>
+<footer>
+&copy; 2025 八百万の輝石
+</footer>
 <script>
 const gods = [
   { name: "天照大神", stone: "サンストーン", msg: "光と希望をもたらす女神" },
@@ -193,23 +210,7 @@ document.getElementById('diagnosisForm').addEventListener('submit', function(e){
     <a href="https://lin.ee/Ea4m5Oj" target="_blank">LINEで詳細を見る</a>
   `;
 });
-<!-- 有料詳細診断ボタン -->
-<div style="text-align:center; margin-top: 30px;">
-    <button id="checkout-button" style="
-        background-color: #d4af37;
-        color: white;
-        padding: 15px 30px;
-        font-size: 1.2em;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-    ">
-        💎 詳細診断を見る（有料） 💎
-    </button>
-</div>
-<footer>
-&copy; 2025 八百万の輝石
-</footer>
+</script>
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
