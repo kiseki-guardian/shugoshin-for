@@ -197,6 +197,39 @@ document.getElementById('diagnosisForm').addEventListener('submit', function(e){
     <a href="https://lin.ee/Ea4m5Oj" target="_blank">LINEで詳細を見る</a>
   `;
 });
+<!-- 有料詳細診断ボタン -->
+<div style="text-align:center; margin-top: 30px;">
+    <button id="checkout-button" style="
+        background-color: #d4af37;
+        color: white;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    ">
+        💎 詳細診断を見る（有料） 💎
+    </button>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe("pk_test_pk_test_51RwNChGWL0rYPR9fJTGPlQe1zzNhBhqJOx4ZkgTPa2pdUwiMpgZM5giz8dgE95GqwUgsjtf4kcwVg3kFEACe8Ttl0052P5CgYf");
+    document.getElementById("checkout-button").addEventListener("click", function () {
+        fetch("/create-checkout-session", { method: "POST" })
+            .then(response => response.json())
+            .then(session => {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(result => {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    });
 </script>
 </body>
 </html>
