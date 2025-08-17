@@ -1,124 +1,108 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>守護神診断 - 和柄豪華版</title>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin:0; padding:0;
-    font-family:'Shippori Mincho', serif;
-    color:#fff;
-    background-color:#4B3B4A;
-    overflow-x:hidden;
-    position:relative;
-  }
-  body::before {
-    content:'';
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background-image:url('img/waterpattern.png');
-    background-repeat:repeat;
-    opacity:0.15;
-    z-index:0;
-  }
-  header { text-align:center; padding:80px 20px 40px 20px; position:relative; z-index:1;}
-  header h1 { font-size:2.5em; color:#FFD700; text-shadow:2px 2px 5px #000; margin:0;}
-  header p { margin-top:10px; font-size:1.2em; color:#fff3c4;}
-  main {
-    max-width:550px; margin:20px auto 60px auto;
-    background:rgba(255,255,255,0.05);
-    padding:30px; border-radius:20px;
-    backdrop-filter:blur(5px);
-    box-shadow:0 8px 30px rgba(0,0,0,0.3);
-    position:relative; z-index:1;
-  }
-  label { display:block; margin-top:15px; font-size:1.1em; color:#fff;}
-  input { width:100%; padding:12px; margin-top:5px; border:none; border-radius:12px; font-size:1em;}
-  button { width:100%; padding:15px; margin-top:25px; border:none; border-radius:30px; font-size:1.2em; font-weight:bold; cursor:pointer; color:#4B3B4A; background:linear-gradient(45deg,#FFD700,#DAA520); box-shadow:0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease;}
-  button:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.5);}
-  #result { margin-top:30px; padding:20px; background:rgba(255,255,255,0.1); border-radius:15px; display:none; animation:fadeIn 1s ease forwards;}
-  #result h2 { font-size:1.6em; margin-bottom:10px; color:#FFD700;}
-  #result p { font-size:1.1em; margin:8px 0;}
-  #line-button-container { text-align:center; margin-top:20px; display:none;}
-  #line-button { display:inline-block; padding:15px 30px; background-color:#00C300; color:white; font-size:1.2em; border-radius:30px; text-decoration:none; font-weight:bold;}
-  footer { text-align:center; font-size:0.85em; padding:25px; color:#fff8c4;}
-  @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>守護神診断</title>
+  <style>
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: #faf6f2;
+    }
+    h1 {
+      color: #5a2d82;
+    }
+    .result-box {
+      margin-top: 20px;
+      padding: 15px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      background: white;
+      display: none;
+    }
+    button, a {
+      margin-top: 20px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+    }
+    button:hover, a:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
+  <h1>🪷 あなたの守護神を診断 🪷</h1>
+  <p>名前と生年月日を入力してください</p>
 
-<header>
-  <h1>🌸 あなたの守護神診断 🌸</h1>
-  <p>名前と生年月日から、あなたを守る神様と守護石を導きます</p>
-</header>
-
-<main>
-  <form id="diagnosisForm">
-    <label for="name">お名前</label>
-    <input type="text" id="name" required>
-    <label for="birth">生年月日</label>
-    <input type="date" id="birth" required>
+  <!-- 診断フォーム -->
+  <form id="diagnosis-form">
+    <input type="text" id="name" placeholder="名前" required><br><br>
+    <input type="date" id="birthday" required><br><br>
     <button type="submit">診断する</button>
   </form>
 
-  <div id="result"></div>
+  <!-- 簡易結果 -->
+  <div id="result" class="result-box"></div>
 
-  <!-- LINE誘導ボタン -->
-  <div id="line-button-container">
-    <a id="line-button" target="_blank">💌 LINEで詳細診断を見る</a>
+  <!-- LINEボタン -->
+  <div id="line-btn-container" style="display:none;">
+    <a id="line-btn" target="_blank">LINEで詳細診断を見る</a>
   </div>
-</main>
 
-<footer>
-&copy; 2025 八百万の輝石
-</footer>
+  <script>
+    // 守護神データ（12柱サンプル）
+    const gods = [
+      { name: "天照大神", page: "amaterasu.html", message: "光と希望をもたらす太陽の女神です。" },
+      { name: "月読命", page: "tsukuyomi.html", message: "静けさと直感を授ける月の神です。" },
+      { name: "須佐之男命", page: "susanoo.html", message: "変革と自由を司る荒ぶる神です。" },
+      { name: "大国主命", page: "okuninushi.html", message: "縁結びと繁栄をもたらす神です。" },
+      { name: "市杵島姫命", page: "ichikishima.html", message: "芸術と美を守護する水の女神です。" },
+      { name: "布都御魂神", page: "futsunomitama.html", message: "勇気と戦いを司る霊剣の神です。" },
+      { name: "大山祇神", page: "ooyamatsumi.html", message: "山と自然の恵みを守る神です。" },
+      { name: "火之迦具土神", page: "kagutsuchi.html", message: "火と情熱を象徴する神です。" },
+      { name: "建御雷神", page: "takemikazuchi.html", message: "雷と武勇を司る神です。" },
+      { name: "少彦名神", page: "sukunahikona.html", message: "癒しと医術を授ける神です。" },
+      { name: "瓊瓊杵尊", page: "ninigi.html", message: "実りと調和をもたらす神です。" },
+      { name: "伊邪那美命", page: "izanami.html", message: "生と死の循環を司る女神です。" }
+    ];
 
-<script>
-const gods = [
-  { name:"天照大神", stone:"サンストーン", msg:"光と希望をもたらす女神" },
-  { name:"須佐之男命", stone:"ラピスラズリ", msg:"変革と自由を司る神" },
-  { name:"大国主命", stone:"ガーネット", msg:"縁結びと繁栄の神" },
-  { name:"市杵島姫命", stone:"アメジスト", msg:"芸術と美の女神" },
-  { name:"猿田彦命", stone:"タイガーアイ", msg:"道を切り開く神" },
-  { name:"月読命", stone:"ムーンストーン", msg:"直感と癒しを与える神" },
-  { name:"豊受大神", stone:"エメラルド", msg:"豊穣と安らぎの神" },
-  { name:"火之迦具土神", stone:"ルビー", msg:"情熱とエネルギーの神" },
-  { name:"木花咲耶姫", stone:"ローズクォーツ", msg:"愛と美の女神" },
-  { name:"伊邪那岐命", stone:"オブシディアン", msg:"創造と浄化の神" },
-  { name:"伊邪那美命", stone:"ラブラドライト", msg:"再生と神秘の女神" },
-  { name:"少彦名命", stone:"アクアマリン", msg:"知恵と癒しの神" }
-];
+    // フォーム送信イベント
+    document.getElementById('diagnosis-form').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-document.getElementById('diagnosisForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name = document.getElementById('name').value.trim();
-  const birth = document.getElementById('birth').value;
-  if(!name || !birth) return;
+      const name = document.getElementById('name').value;
+      const birthday = document.getElementById('birthday').value;
 
-  const index = (name.length + new Date(birth).getDate()) % gods.length;
-  const god = gods[index];
+      // シンプルな診断ロジック（生年月日の数字合計で決定）
+      const num = birthday.split("-").join("").split("").reduce((a,b)=>a+Number(b),0);
+      const god = gods[num % gods.length];
 
-  const result = document.getElementById('result');
-  result.style.display='block';
-  result.innerHTML = `
-    <h2>${name} さんの守護神は…</h2>
-    <p><strong>${god.name}</strong></p>
-    <p>${god.msg}</p>
-    <p>守護石：${god.stone}</p>
-  `;
+      // 簡易結果を表示
+      const resultBox = document.getElementById('result');
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = `
+        <h2>${name} さんの守護神は「${god.name}」です</h2>
+        <p>${god.message}</p>
+        <p>詳細メッセージはLINEからご確認ください。</p>
+      `;
 
-  // LINEボタン表示
-  const lineBtnContainer = document.getElementById('line-button-container');
-  const lineBtn = document.getElementById('line-button');
-  // URLに事前メッセージを埋め込む
-  const preMessage = `${name} さんの守護神の詳細を知りたいです`;
-  lineBtn.href = "https://lin.ee/Ea4m5Oj?text=" + encodeURIComponent(preMessage);
-  lineBtnContainer.style.display = 'block';
-});
-</script>
+      // LINEボタンに事前メッセージを埋め込む
+      const lineBtn = document.getElementById('line-btn');
+      const preMessage = `${name} さんの守護神は ${god.name} でした。詳細診断を希望します。`;
+      lineBtn.href = "https://lin.ee/Ea4m5Oj?text=" + encodeURIComponent(preMessage);
 
+      document.getElementById('line-btn-container').style.display = 'block';
+    });
+  </script>
 </body>
 </html>
